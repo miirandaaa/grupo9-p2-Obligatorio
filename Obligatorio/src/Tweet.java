@@ -1,4 +1,16 @@
 public class Tweet {
+    private String content;
+    private User user;
+    private String source;
+    private boolean isRetweet;
+
+    public Tweet(long id, String content, User user, String source, boolean isRetweet) {
+        this.id = id;
+        this.content = content;
+        this.user = user;
+        this.source = source;
+        this.isRetweet = isRetweet;
+    }
     public long getId() {
         return id;
     }
@@ -41,17 +53,4 @@ public class Tweet {
         isRetweet = retweet;
     }
 
-    private String content;
-    private User user;
-    private String source;
-
-    private boolean isRetweet;
-
-    public Tweet(long id, String content, User user, String source, boolean isRetweet) {
-        this.id = id;
-        this.content = content;
-        this.user = user;
-        this.source = source;
-        this.isRetweet = isRetweet;
-    }
 }
