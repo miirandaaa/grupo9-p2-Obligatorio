@@ -7,7 +7,7 @@ import java.io.Reader;
 
 public class CargaDatos {
     public void datos() throws IOException {
-        Reader in = new FileReader("Dataset/f1_dataset_test.csv");
+        Reader in = new FileReader("grupo9-p2-Obligatorio/Obligatorio/Dataset/f1_dataset_test.csv");
         Iterable<CSVRecord> records = CSVFormat.EXCEL.parse(in);
         int counter=100;
         for (CSVRecord record : records) {
