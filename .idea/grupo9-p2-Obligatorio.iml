@@ -6,6 +6,7 @@
       <sourceFolder url="file://$MODULE_DIR$/TadProg2/src" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/TadProg2/test" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/Obligatorio/src" isTestSource="false" />
+      <excludeFolder url="file://$MODULE_DIR$/Obligatorio/src/Dataset" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
