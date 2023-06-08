@@ -1,14 +1,14 @@
 package uy.edu.um.prog2.adt.heap;
 
-public class MyHeapImpl<T extends Comparable<T>> implements MyHeap<T>{
+public class MyHeapImpl<K extends Comparable<K>,T> implements MyHeap<K,T>{
 
     private boolean isMin;
-    private T[] heap;
+    private HeapNode<K,T>[] heap;
     private int size;
     public MyHeapImpl(boolean isMin, int tamano) {
         this.size=0;
         this.isMin = isMin;
-        this.heap = (T[]) new Comparable[tamano];
+        this.heap = new HeapNode[tamano];
     }
 
     public boolean isMin() {
@@ -19,29 +19,30 @@ public class MyHeapImpl<T extends Comparable<T>> implements MyHeap<T>{
         isMin = min;
     }
 
-    public T[] getHeap() {
+    public HeapNode<K,T>[] getHeap() {
         return heap;
     }
 
-    public void setHeap(T[] heap) {
+    public void setHeap(HeapNode<K,T>[] heap) {
         this.heap = heap;
     }
 
 
     @Override
-    public void agregar(T elemento) {
+    public void agregar(K key, T elemento) {
         if(obtenerSize()== heap.length-1){
             duplicarTamano();
         }
+        HeapNode<K,T> nodo=new HeapNode<>(key,elemento);
         if(size==0){
-            heap[0]=elemento;
+            heap[0]=nodo;
             size=size+1;
         } else{
-            heap[size] = elemento;
+            heap[size] = nodo;
             for(int pos=size; pos>0;pos--){
                 int padre=(pos-1)/2;
-                if((heap[pos].compareTo(heap[padre])<0 && isMin) || (heap[pos].compareTo(heap[padre])>0 && !isMin)){
-                    T aux=heap[padre];
+                if((heap[pos].getKey().compareTo(heap[padre].getKey())<0 && isMin) || (heap[pos].getKey().compareTo(heap[padre].getKey())>0 && !isMin)){
+                    HeapNode<K,T> aux=heap[padre];
                     heap[padre]=heap[pos];
                     heap[pos]=aux;
                 }
@@ -53,7 +54,7 @@ public class MyHeapImpl<T extends Comparable<T>> implements MyHeap<T>{
 
     @Override
     public T obtener() {
-        return heap[0];
+        return heap[0].getData();
     }
 
     @Override
@@ -71,10 +72,10 @@ public class MyHeapImpl<T extends Comparable<T>> implements MyHeap<T>{
                 int hijoizq = 2*pos + 1;
                 int hijoder = 2*pos + 2;
                 if(hijoizq<size && hijoder<size) {
-                    if ((heap[pos].compareTo(heap[hijoizq]) > 0 && isMin) || (heap[pos].compareTo(heap[hijoder]) > 0 && isMin) ||
-                        (heap[pos].compareTo(heap[hijoizq]) < 0 && !isMin) || (heap[pos].compareTo(heap[hijoder]) < 0 && !isMin)) {
-                        T aux;
-                        if ((heap[hijoizq].compareTo(heap[hijoder]) > 0 && isMin) || (heap[hijoizq].compareTo(heap[hijoder]) < 0 && !isMin)) {
+                    if ((heap[pos].getKey().compareTo(heap[hijoizq].getKey()) > 0 && isMin) || (heap[pos].getKey().compareTo(heap[hijoder].getKey()) > 0 && isMin) ||
+                        (heap[pos].getKey().compareTo(heap[hijoizq].getKey()) < 0 && !isMin) || (heap[pos].getKey().compareTo(heap[hijoder].getKey()) < 0 && !isMin)) {
+                        HeapNode<K,T> aux;
+                        if ((heap[hijoizq].getKey().compareTo(heap[hijoder].getKey()) > 0 && isMin) || (heap[hijoizq].getKey().compareTo(heap[hijoder].getKey()) < 0 && !isMin)) {
                             aux = heap[hijoder];
                             heap[hijoder] = heap[pos];
                             heap[pos] = aux;
@@ -89,8 +90,8 @@ public class MyHeapImpl<T extends Comparable<T>> implements MyHeap<T>{
                         break;
                     }
                 } else if(hijoizq<size) {
-                    if ((heap[pos].compareTo(heap[hijoizq]) > 0 && isMin) || (heap[pos].compareTo(heap[hijoizq]) < 0 && !isMin)) {
-                        T aux;
+                    if ((heap[pos].getKey().compareTo(heap[hijoizq].getKey()) > 0 && isMin) || (heap[pos].getKey().compareTo(heap[hijoizq].getKey()) < 0 && !isMin)) {
+                        HeapNode<K,T> aux;
                         aux = heap[hijoizq];
                         heap[hijoizq] = heap[pos];
                         heap[pos] = aux;
@@ -114,7 +115,7 @@ public class MyHeapImpl<T extends Comparable<T>> implements MyHeap<T>{
     }
 
     public void duplicarTamano(){
-        T[] heap2= (T[]) new Comparable[this.heap.length*2];
+        HeapNode<K,T>[] heap2=  new HeapNode[this.heap.length*2];
         System.arraycopy(this.heap,0,heap2,0,this.size);
         this.heap=heap2;
 
