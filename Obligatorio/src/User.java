@@ -6,6 +6,7 @@ public class User {
     private boolean isVerified;
     private int userFavourites;
     private MyLinkedListImpl<Tweet> tweets;
+    private Tweet lastTweet;
 
     public User(String name, boolean isVerified, int userFavourites) {
         this.name = name;
@@ -13,6 +14,7 @@ public class User {
         this.isVerified = isVerified;
         this.userFavourites = userFavourites;
         this.tweets=null;
+        this.lastTweet = null;
     }
     public String getName() {
         return name;
@@ -34,4 +36,6 @@ public class User {
     public void setUserFavourites(int userFavourites) {this.userFavourites = userFavourites;}
     public MyLinkedListImpl<Tweet> getTweets() {return tweets;}
     public void setTweets(MyLinkedListImpl<Tweet> tweets) {this.tweets = tweets;}
+    public Tweet getLastTweet() {return lastTweet;}
+    public void setLastTweet(Tweet lastTweet) {this.lastTweet = lastTweet;}
 }
