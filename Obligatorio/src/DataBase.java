@@ -23,7 +23,7 @@ public class DataBase {
                 int anio = sc.nextInt();
                 System.out.println("Ingrese el mes que desea consultar (1 al 12): ");
                 int mes = sc.nextInt();
-                //Aca va la funcion que hay que crear sape
+                //Aca llamar a la funcion topPilotos de Funciones
                 System.out.println("Los 10 Pilotos mas Mencionados son: ");
             }
 
