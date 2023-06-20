@@ -32,7 +32,7 @@ public class HashTableImpl<K,T> implements  MyHashTable<K,T>{
         return attempt;
     }
     private int linearIndex(K key, int attempt){
-        return (key.hashCode()+linearColision(attempt)) % this.hash.length;
+        return Math.abs(key.hashCode()+linearColision(attempt)) % this.hash.length;
     }
     @Override
     public T get(K key) {

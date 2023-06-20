@@ -1,4 +1,4 @@
-import uy.edu.um.prog2.adt.linkedlist.MyLinkedListImpl;
+import uy.edu.um.prog2.adt.linkedlist.*;
 import java.util.Date;
 
 public class Tweet {
@@ -17,7 +17,7 @@ public class Tweet {
         this.source = source;
         this.isRetweet = isRetweet;
         this.date = date;
-        this.hashTags=null;
+        this.hashTags=new MyLinkedListImpl<>();
     }
     public long getId() {
         return id;

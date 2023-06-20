@@ -14,7 +14,7 @@ public class DataBase {
 
             if (opcion == 1 && !datosCargados){
             CargaDatos carga = new CargaDatos();
-            carga.datos();
+            //carga.datos();
             datosCargados = true;
             }
 
