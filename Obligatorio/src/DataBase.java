@@ -22,14 +22,54 @@ public class DataBase {
                 int anio = sc.nextInt();
                 System.out.println("Ingrese el mes que desea consultar (1 al 12): ");
                 int mes = sc.nextInt();
-                //Aca llamar a la funcion topPilotos de Funciones
+                Funciones.topPilotos(anio, mes);
                 System.out.println("Los 10 Pilotos mas Mencionados son: ");
             }
 
             if (opcion == 3 && datosCargados){
+                Funciones.topUsuarios();
 
-
+                System.out.println("Los 15 Usuarios con mas Tweets son: ");
             }
+
+            if (opcion == 4 && datosCargados){
+                System.out.println("Ingrese el año que desea consultar (2021 o 2022): ");
+                int anio = sc.nextInt();
+                System.out.println("Ingrese el mes que desea consultar (1 al 12): ");
+                int mes = sc.nextInt();
+                System.out.println("Ingrese el dia que desea consultar (1 al 31): ");
+                int dia = sc.nextInt();
+                Funciones.cantidadHashtags(anio,mes, dia);
+                System.out.println("La cantidad de Hashtags es: ");
+            }
+
+            if (opcion == 5 && datosCargados){
+                System.out.println("Ingrese el año que desea consultar (2021 o 2022): ");
+                int anio = sc.nextInt();
+                System.out.println("Ingrese el mes que desea consultar (1 al 12): ");
+                int mes = sc.nextInt();
+                System.out.println("Ingrese el dia que desea consultar (1 al 31): ");
+                int dia = sc.nextInt();
+                HashTag hash = Funciones.hashtagMasUsado(anio,mes, dia);
+                System.out.println("El Hashtag mas usado es:  ");
+            }
+
+            if (opcion == 6 && datosCargados){
+                Funciones.topFavoritos();
+                System.out.println("Los 7 Usuarios con mas Favoritos son: ");
+            }
+
+            if (opcion == 7 && datosCargados){
+                System.out.println("Ingrese la frase que desea consultar: ");
+                String frase = sc.nextLine();
+                Funciones.cantidadTweetsFrase(frase);
+                System.out.println("La cantidad de Tweets con la frase es: ");
+            }
+
+            if (opcion == 8){
+                break;
+            }
+
 
 
             sc.close();
