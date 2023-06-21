@@ -35,9 +35,11 @@ public class DataBase {
             }
 
             if (opcion == 3 && datosCargados){
-                Funciones.topUsuarios();
-
+                HeapNode<Integer,User>[] heapUser =  Funciones.topUsuarios(hashUsers);
                 System.out.println("Los 15 Usuarios con mas Tweets son: ");
+                for (int i = 0; i < 15; i++) {
+                    System.out.println("Username: "+heapUser[i].getData().getName() + " Cantidad de Tweets: "+ heapUser[i].getKey()+ " Verificado: " + heapUser[i].getData().isVerified());
+                }
             }
 
             if (opcion == 4 && datosCargados){

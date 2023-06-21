@@ -3,6 +3,7 @@ import uy.edu.um.prog2.adt.hash.MyHashTable;
 import uy.edu.um.prog2.adt.heapSort.HeapNode;
 import uy.edu.um.prog2.adt.heap.MyHeapImpl;
 import uy.edu.um.prog2.adt.heapSort.HeapSort;
+import uy.edu.um.prog2.adt.linkedlist.MyLinkedList;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -28,9 +29,21 @@ public class Funciones {
     }
 
 
-    public static HeapNode<Integer,String>[] topUsuarios(){
-        //heap sort para ordenar por cantidad de tweets de mayor a menor
-        return null;
+    public static HeapNode<Integer,User>[] topUsuarios(MyHashTable<String,User> hash){
+        MyLinkedList<String> keys = hash.keys();
+        HeapNode<Integer, User>[] heap = new HeapNode[keys.size()];
+        for (int i = 0; i < hash.size(); i++) {
+            hash.get(keys.get(i)).getTweets().size();
+            heap[i] = new HeapNode<>(hash.get(keys.get(i)).getTweets().size(), hash.get(keys.get(i)));
+        }
+        HeapSort<Integer, User> heapSort = new HeapSort<>();
+        heapSort.sort(heap);
+
+        HeapNode<Integer, User>[] heapFinal = new HeapNode[15];
+        for (int i = 0; i < 15; i++) {
+            heapFinal[i] = heap[i];
+        }
+        return heapFinal;
     }
 
     public static int cantidadHashtags(int anio, int mes, int dia){

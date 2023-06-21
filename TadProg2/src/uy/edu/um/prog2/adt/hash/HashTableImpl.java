@@ -83,8 +83,10 @@ public class HashTableImpl<K,T> implements  MyHashTable<K,T>{
         MyLinkedList<K> keys=new MyLinkedListImpl<>();
         int index=0;
         while (keys.size()<this.size && index<this.hash.length){
-            if(!this.hash[index].isDeleted() && this.hash[index]!=null){
-                keys.add(this.hash[index].getKey());
+            if( this.hash[index]!=null){
+                if(!this.hash[index].isDeleted()){
+                    keys.add(this.hash[index].getKey());
+                }
             }
             index++;
         }
