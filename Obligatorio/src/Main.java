@@ -12,7 +12,7 @@ public class Main {
         carga.datos(hashUsers,hashHashtags,hashTweets);
         System.out.println(hashHashtags.size());
         System.out.println(hashUsers.size());
-        System.out.println(hashTweets.size());
+        System.out.println(hashTweets.keys().size());
     }
 
 }
