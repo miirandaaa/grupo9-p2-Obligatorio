@@ -18,12 +18,16 @@ import uy.edu.um.prog2.adt.linkedlist.*;
 public class CargaDatos {
     public void datos(MyHashTable<String,User> hashUsers,MyHashTable<String,HashTag> hashHashtags,MyHashTable<Long,Tweet> hashTweets) throws IOException{
         String[] arrayHashtag;
+        int counter=0;
+        int counter2=0;
+        int counter3=0;
         //MyHashTable<String,User> hashUsers= new HashTableImpl<>(630000);
         //MyHashTable<String,HashTag> hashHashtags= new HashTableImpl<>(600000);
         //MyHashTable<Integer,Tweet> hashTweets= new HashTableImpl<>(630000);
         Reader in = new FileReader("src/DataFile/f1_dataset_test.csv");
         Iterable<CSVRecord> records = CSVFormat.EXCEL.parse(in);
         for (CSVRecord record : records) {
+            counter3++;
             String userName;
             Date dateTweetCreated;
             int userFavourites;
@@ -42,12 +46,14 @@ public class CargaDatos {
                     userName = record.get(1);
                     content = record.get(10);
                     source = record.get(12);
-
+                    counter++;
                 } catch (Exception e) {
+                    counter2++;
                     continue;
                 }
 
             } else {
+                counter2++;
                 continue;
             }
             //Creacion de usuario
@@ -85,6 +91,9 @@ public class CargaDatos {
 
 
         }
+        System.out.println(counter+" correctos");
+        System.out.println(counter2+" errores");
+        System.out.println(counter3+" total");
     }
 
     public String[] transformarArray(String str){
