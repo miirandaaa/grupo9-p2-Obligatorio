@@ -1,5 +1,4 @@
 import uy.edu.um.prog2.adt.hash.HashTableImpl;
-
 import java.io.IOException;
 import java.util.Scanner;
 
@@ -26,6 +25,12 @@ public class DataBase {
                 //Aca llamar a la funcion topPilotos de Funciones
                 System.out.println("Los 10 Pilotos mas Mencionados son: ");
             }
+
+            if (opcion == 3 && datosCargados){
+
+
+            }
+
 
             sc.close();
         }
