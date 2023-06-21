@@ -1,4 +1,6 @@
 import uy.edu.um.prog2.adt.linkedlist.*;
+
+import java.time.LocalDate;
 import java.util.Date;
 
 public class Tweet {
@@ -8,9 +10,9 @@ public class Tweet {
     private User user;
     private String source;
     private boolean isRetweet;
-    private Date date;
+    private LocalDate date;
     private MyLinkedListImpl<HashTag> hashTags;
-    public Tweet (String content, User user, String source, boolean isRetweet, Date date) {
+    public Tweet (String content, User user, String source, boolean isRetweet, LocalDate date) {
         this.id = idCounter++;
         this.content = content;
         this.user = user;
@@ -47,8 +49,8 @@ public class Tweet {
     public void setRetweet(boolean retweet) {
         isRetweet = retweet;
     }
-    public Date getDate() {return date;}
-    public void setDate(Date date) {this.date = date;}
+    public LocalDate getDate() {return date;}
+    public void setDate(LocalDate date) {this.date = date;}
     public MyLinkedListImpl<HashTag> getHashTags() {return hashTags;}
     public void setHashTags(MyLinkedListImpl<HashTag> hashTags) {this.hashTags = hashTags;}
 }

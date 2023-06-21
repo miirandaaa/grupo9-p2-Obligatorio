@@ -6,6 +6,8 @@ import java.io.Reader;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.LinkedList;
@@ -21,15 +23,13 @@ public class CargaDatos {
         int counter=0;
         int counter2=0;
         int counter3=0;
-        //MyHashTable<String,User> hashUsers= new HashTableImpl<>(630000);
-        //MyHashTable<String,HashTag> hashHashtags= new HashTableImpl<>(600000);
-        //MyHashTable<Integer,Tweet> hashTweets= new HashTableImpl<>(630000);
-        Reader in = new FileReader("src/DataFile/f1_dataset_test.csv");
+
+        Reader in = new FileReader("Obligatorio/src/Data/f1_dataset_test.csv");
         Iterable<CSVRecord> records = CSVFormat.EXCEL.parse(in);
         for (CSVRecord record : records) {
             counter3++;
             String userName;
-            Date dateTweetCreated;
+            LocalDate dateTweetCreated;
             int userFavourites;
             boolean userVerified;
             boolean tweetRetweet;
@@ -83,7 +83,7 @@ public class CargaDatos {
             if(tweetUser.getLastTweet()==null){
                 tweetUser.setLastTweet(nuevoTweet);
             } else {
-                if(tweetUser.getLastTweet().getDate().before(dateTweetCreated)){
+                if(tweetUser.getLastTweet().getDate().isBefore(dateTweetCreated)){
                     tweetUser.setLastTweet(nuevoTweet);
                     tweetUser.setUserFavourites(userFavourites);
                 }
@@ -107,11 +107,10 @@ public class CargaDatos {
         return splitArray;
     }
 
-    public Date transformarDate(String str) throws ParseException {
-        String pattern="yyyy-MM-dd HH:mm:ss";
-        DateFormat dateFormat = new SimpleDateFormat(pattern);
-        Date date = dateFormat.parse(str);
-        return date;
+    public LocalDate transformarDate(String str) throws ParseException {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        LocalDate localDate = LocalDate.parse(str, formatter);
+        return localDate;
     }
 
     public int transformarInterger(String str) throws NumberFormatException{
