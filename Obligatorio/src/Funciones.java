@@ -13,7 +13,7 @@ import java.io.IOException;
 public class Funciones {
 
     public static HeapNode<Integer, String>[] topPilotos(int anio, int mes, MyHashTable<Long, Tweet> hash) {
-        HeapNode<Integer, String>[] heap = leerArchivo("Obligatorio/src/Data/drivers.txt");
+        HeapNode<Integer, String>[] heap = leerArchivo("src/Data/drivers.txt");
         for (long i = 0; i < hash.size(); i++) {
             if (hash.get(i).getDate().getYear() == anio && hash.get(i).getDate().getMonthValue() == mes) {
                 for (int j = 0; j < heap.length; j++) {
@@ -48,12 +48,11 @@ public class Funciones {
     }
 
     public static int cantidadHashtags(int anio, int mes, int dia, MyHashTable<Long, Tweet> hash){
-        MyLinkedList<Long> keys = hash.keys();
         MyLinkedList<String> hashtagslist = new MyLinkedListImpl<>();
-        for (int i = 0; i < hash.size(); i++) {
-            if (hash.get(keys.get(i)).getDate().getYear() == anio && hash.get(keys.get(i)).getDate().getMonthValue() == mes && hash.get(keys.get(i)).getDate().getDayOfMonth() == dia) {
-                for (int j = 0; j < hash.get(keys.get(i)).getHashTags().size(); j++) {
-                   String text =  hash.get(keys.get(i)).getHashTags().get(j).getText();
+        for (long i = 0; i < hash.size(); i++) {
+            if (hash.get(i).getDate().getYear() == anio && hash.get(i).getDate().getMonthValue() == mes && hash.get(i).getDate().getDayOfMonth() == dia) {
+                for (int j = 0; j < hash.get(i).getHashTags().size(); j++) {
+                   String text =  hash.get(i).getHashTags().get(j).getText();
                    if (!hashtagslist.contains(text)){
                           hashtagslist.add(text);
                    }
@@ -63,9 +62,36 @@ public class Funciones {
         return hashtagslist.size();
     }
 
-    public static HashTag hashtagMasUsado(int anio, int mes, int dia){
-        //recorrer el hash table y buscar el hashtag con mas tweets
-        return null;
+    public static String  hashtagMasUsado(int anio, int mes, int dia, MyHashTable<Long, Tweet> hash){
+        int cantidad = cantidadHashtags(anio,mes,dia,hash);
+        MyHashTable<String, HeapNode<Integer,String>> hashHashtags = new HashTableImpl<>(cantidad);
+        int contador = 0;
+        boolean encontrado = false;
+        for (long  i = 0; i < hash.size(); i++) {
+            if (hash.get(i).getDate().getYear() == anio && hash.get(i).getDate().getMonthValue() == mes && hash.get(i).getDate().getDayOfMonth() == dia) {
+                for (int j = 0; j < hash.get(i).getHashTags().size(); j++) {
+                    String text =  hash.get(i).getHashTags().get(j).getText();
+                    if (hashHashtags.contains(text) && !text.equalsIgnoreCase("f1")){
+                            hashHashtags.get(text).setKey(hashHashtags.get(text).getKey()+1);
+                            encontrado = true;
+                            break;
+                    }
+                    if (!encontrado && !text.equalsIgnoreCase("f1")){
+                        HeapNode<Integer,String> nuevo = new HeapNode<>(0,text);
+                        hashHashtags.put(text,nuevo);
+                        contador++;
+                    }
+                }
+            }
+        }
+        HeapNode<Integer,String>[] heap = new HeapNode[hashHashtags.size()];
+        MyLinkedList<String> keys = hashHashtags.keys();
+        for (int m = 0; m< keys.size(); m++){
+            heap[m] = hashHashtags.get(keys.get(m));
+        }
+        HeapSort<Integer, String> heapSort = new HeapSort<>();
+        heapSort.sort(heap);
+        return heap[0].getData();
     }
 
     public static HeapNode<Integer,String>[] topFavoritos(){

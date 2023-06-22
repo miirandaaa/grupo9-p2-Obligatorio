@@ -24,7 +24,7 @@ public class CargaDatos {
         int counter2=0;
         int counter3=0;
 
-        Reader in = new FileReader("Obligatorio/src/Data/f1_dataset_test.csv");
+        Reader in = new FileReader("src/Data/f1_dataset_test.csv");
         Iterable<CSVRecord> records = CSVFormat.EXCEL.parse(in);
         for (CSVRecord record : records) {
             counter3++;
