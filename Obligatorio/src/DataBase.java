@@ -49,8 +49,9 @@ public class DataBase {
                 int mes = sc.nextInt();
                 System.out.println("Ingrese el dia que desea consultar (1 al 31): ");
                 int dia = sc.nextInt();
-                Funciones.cantidadHashtags(anio,mes, dia);
                 System.out.println("La cantidad de Hashtags es: ");
+                Funciones.cantidadHashtags(anio,mes, dia, hashTweets);
+
             }
 
             if (opcion == 5 && datosCargados){

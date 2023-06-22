@@ -7,4 +7,5 @@ public interface MyLinkedList<T> {
     int size();
     public void addFirst(T value);
 
+    public boolean contains(T value);
 }
