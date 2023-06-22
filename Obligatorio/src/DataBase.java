@@ -49,8 +49,8 @@ public class DataBase {
                 int mes = sc.nextInt();
                 System.out.println("Ingrese el dia que desea consultar (1 al 31): ");
                 int dia = sc.nextInt();
-                System.out.println("La cantidad de Hashtags es: ");
-                Funciones.cantidadHashtags(anio,mes, dia, hashTweets);
+                int cantidad = Funciones.cantidadHashtags(anio,mes, dia, hashTweets);
+                System.out.println("La cantidad de Hashtags es: " + cantidad);
 
             }
 
@@ -61,8 +61,8 @@ public class DataBase {
                 int mes = sc.nextInt();
                 System.out.println("Ingrese el dia que desea consultar (1 al 31): ");
                 int dia = sc.nextInt();
-                HashTag hash = Funciones.hashtagMasUsado(anio,mes, dia);
-                System.out.println("El Hashtag mas usado es:  ");
+                String hashMasUsado = Funciones.hashtagMasUsado(anio,mes, dia, hashTweets);
+                System.out.println("El Hashtag mas usado es: " + hashMasUsado);
             }
 
             if (opcion == 6 && datosCargados){
