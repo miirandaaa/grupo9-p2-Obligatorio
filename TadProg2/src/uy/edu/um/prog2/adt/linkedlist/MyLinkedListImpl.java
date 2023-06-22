@@ -106,7 +106,21 @@ public class MyLinkedListImpl <T> implements MyLinkedList<T>{
             this.head.setNext(temp);
         }
     }
+
+    @Override
+    public boolean contains(T value) {
+        for (int i = 0; i < this.size(); i++) {
+            if(this.get(i).equals(value)){
+                return true;
+            }
+        }
+        return false;
+    }
+
     public void addLast(T value){
         add(value);
     }
+
+
+
 }

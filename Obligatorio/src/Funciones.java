@@ -4,6 +4,7 @@ import uy.edu.um.prog2.adt.heapSort.HeapNode;
 import uy.edu.um.prog2.adt.heap.MyHeapImpl;
 import uy.edu.um.prog2.adt.heapSort.HeapSort;
 import uy.edu.um.prog2.adt.linkedlist.MyLinkedList;
+import uy.edu.um.prog2.adt.linkedlist.MyLinkedListImpl;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -46,10 +47,20 @@ public class Funciones {
         return heapFinal;
     }
 
-    public static int cantidadHashtags(int anio, int mes, int dia){
-
-        //recorrer el hash table y sumar la cantidad de hashtags
-        return 0;
+    public static int cantidadHashtags(int anio, int mes, int dia, MyHashTable<Long, Tweet> hash){
+        MyLinkedList<Long> keys = hash.keys();
+        MyLinkedList<String> hashtagslist = new MyLinkedListImpl<>();
+        for (int i = 0; i < hash.size(); i++) {
+            if (hash.get(keys.get(i)).getDate().getYear() == anio && hash.get(keys.get(i)).getDate().getMonthValue() == mes && hash.get(keys.get(i)).getDate().getDayOfMonth() == dia) {
+                for (int j = 0; j < hash.get(keys.get(i)).getHashTags().size(); j++) {
+                   String text =  hash.get(keys.get(i)).getHashTags().get(j).getText();
+                   if (!hashtagslist.contains(text)){
+                          hashtagslist.add(text);
+                   }
+                }
+            }
+        }
+        return hashtagslist.size();
     }
 
     public static HashTag hashtagMasUsado(int anio, int mes, int dia){
