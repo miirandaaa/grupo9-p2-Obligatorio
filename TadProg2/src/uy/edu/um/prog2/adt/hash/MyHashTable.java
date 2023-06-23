@@ -7,6 +7,10 @@ public interface MyHashTable<K,T>{
     T get(K key);
     void remove(K key);
     MyLinkedList<K> keys();
+
+    Long[] keysLong();
+
+    String[] keysString();
     int size();
     boolean contains(K key);
 

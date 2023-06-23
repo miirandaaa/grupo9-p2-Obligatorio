@@ -8,4 +8,6 @@ public interface MyLinkedList<T> {
     public void addFirst(T value);
 
     public boolean contains(T value);
+
+
 }

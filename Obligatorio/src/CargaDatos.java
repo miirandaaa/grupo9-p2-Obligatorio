@@ -103,6 +103,9 @@ public class CargaDatos {
         String[] splitArray = cleanedStr.split(", ");
 
         // Create an array and copy the split values
+        for (int i = 0; i < splitArray.length; i++) {
+            splitArray[i] = splitArray[i].toLowerCase();
+        }
 
         return splitArray;
     }

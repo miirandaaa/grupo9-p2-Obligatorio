@@ -31,11 +31,10 @@ public class Funciones {
 
 
     public static HeapNode<Integer,User>[] topUsuarios(MyHashTable<String,User> hash){
-        MyLinkedList<String> keys = hash.keys();
-        HeapNode<Integer, User>[] heap = new HeapNode[keys.size()];
+        String[] keys=hash.keysString();
+        HeapNode<Integer, User>[] heap = new HeapNode[keys.length];
         for (int i = 0; i < hash.size(); i++) {
-            hash.get(keys.get(i)).getTweets().size();
-            heap[i] = new HeapNode<>(hash.get(keys.get(i)).getTweets().size(), hash.get(keys.get(i)));
+            heap[i] = new HeapNode<>(hash.get(keys[i]).getTweets().size(), hash.get(keys[i]));
         }
         HeapSort<Integer, User> heapSort = new HeapSort<>();
         heapSort.sort(heap);
@@ -49,10 +48,11 @@ public class Funciones {
 
     public static int cantidadHashtags(int anio, int mes, int dia, MyHashTable<Long, Tweet> hash){
         MyLinkedList<String> hashtagslist = new MyLinkedListImpl<>();
-        for (long i = 0; i < hash.size(); i++) {
-            if (hash.get(i).getDate().getYear() == anio && hash.get(i).getDate().getMonthValue() == mes && hash.get(i).getDate().getDayOfMonth() == dia) {
-                for (int j = 0; j < hash.get(i).getHashTags().size(); j++) {
-                   String text =  hash.get(i).getHashTags().get(j).getText();
+        Long[] llaves= hash.keysLong();
+        for (int i = 0; i < hash.size(); i++) {
+            if (hash.get(llaves[i]).getDate().getYear() == anio && hash.get(llaves[i]).getDate().getMonthValue() == mes && hash.get(llaves[i]).getDate().getDayOfMonth() == dia) {
+                for (int j = 0; j < hash.get(llaves[i]).getHashTags().size(); j++) {
+                   String text =  hash.get(llaves[i]).getHashTags().get(j).getText();
                    if (!hashtagslist.contains(text)){
                           hashtagslist.add(text);
                    }

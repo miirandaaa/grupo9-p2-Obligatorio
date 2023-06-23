@@ -94,6 +94,41 @@ public class HashTableImpl<K,T> implements  MyHashTable<K,T>{
     }
 
     @Override
+    public String[] keysString() {
+        String[] keys=new String[this.size];
+        int index=0;
+        int indexK=0;
+        while (indexK<this.size && index<this.hash.length){
+            if( this.hash[index]!=null){
+                if(!this.hash[index].isDeleted()){
+                    keys[indexK]=(String) this.hash[index].getKey();
+                    indexK++;
+                }
+            }
+            index++;
+        }
+        return keys;
+    }
+
+    @Override
+    public Long[] keysLong() {
+        Long[] keys=new Long[this.size];
+        int index=0;
+        int indexK=0;
+        while (indexK<this.size && index<this.hash.length){
+            if( this.hash[index]!=null){
+                if(!this.hash[index].isDeleted()){
+                    keys[indexK]=(Long) this.hash[index].getKey();
+                    indexK++;
+                }
+            }
+            index++;
+        }
+        return keys;
+    }
+
+
+    @Override
     public int size() {
         return this.size;
     }

@@ -17,9 +17,9 @@ public class DataBase {
             int opcion = sc.nextInt();
 
             if (opcion == 1 && !datosCargados){
-            CargaDatos carga = new CargaDatos();
-            carga.datos(hashUsers,hashHashtags,hashTweets);
-            datosCargados = true;
+                CargaDatos carga = new CargaDatos();
+                carga.datos(hashUsers,hashHashtags,hashTweets);
+                datosCargados = true;
             }
 
             if (opcion == 2 && datosCargados){
