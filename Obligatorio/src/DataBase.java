@@ -17,19 +17,27 @@ public class DataBase {
             int opcion = sc.nextInt();
             sc.nextLine();
 
+            if (opcion < 1 || opcion > 8) {
+                System.out.println("Ingrese un número válido.");
+                continue;
+            }
+
             if (opcion == 1 && !datosCargados){
                 CargaDatos carga = new CargaDatos();
                 carga.datos(hashUsers,hashHashtags,hashTweets);
                 datosCargados = true;
             }
 
+            //Listar 10 pilotos activos mas mencionados en un mes y año especifico
             if (opcion == 2 && datosCargados){
                 System.out.println("Ingrese el año que desea consultar (2021 o 2022): ");
                 int anio = sc.nextInt();
                 sc.nextLine();
-                System.out.println("Ingrese el mes que desea consultar (1 al 12): ");
+                if (!validateAnio(anio)) {continue;}
+                System.out.println("Ingrese el mes que desea consultar (2021(7-12) en 2021(1-8): ");
                 int mes = sc.nextInt();
                 sc.nextLine();
+                if (!validateMes(anio,mes)) {continue;}
                 HeapNode<Integer,String>[] heap = Funciones.topPilotos(anio, mes, hashTweets);
                 System.out.println("Los 10 Pilotos mas Mencionados son: ");
                 for (int i = 0; i < 10; i++) {
@@ -39,6 +47,7 @@ public class DataBase {
                 sc.nextLine();
             }
 
+            //Top 15 usuarios con mas tweets
             if (opcion == 3 && datosCargados){
                 HeapNode<Integer,User>[] heapUser =  Funciones.topUsuarios(hashUsers);
                 System.out.println("Los 15 Usuarios con mas Tweets son: ");
@@ -49,16 +58,20 @@ public class DataBase {
                 sc.nextLine();
             }
 
+            //Cantidad de distintos Hashtags en un dia especifico
             if (opcion == 4 && datosCargados){
                 System.out.println("Ingrese el año que desea consultar (2021 o 2022): ");
                 int anio = sc.nextInt();
                 sc.nextLine();
-                System.out.println("Ingrese el mes que desea consultar (1 al 12): ");
+                if (!validateAnio(anio)) {continue;}
+                System.out.println("Ingrese el mes que desea consultar (2021(7-12) en 2021(1-8)): ");
                 int mes = sc.nextInt();
                 sc.nextLine();
+                if (!validateMes(anio, mes)) {continue;}
                 System.out.println("Ingrese el dia que desea consultar (1 al 31): ");
                 int dia = sc.nextInt();
                 sc.nextLine();
+                if (!validateDia(dia)) {continue;}
                 int cantidad = Funciones.cantidadHashtags(anio,mes, dia, hashTweets);
                 System.out.println("La cantidad de Hashtags es: " + cantidad);
                 System.out.println("Presione enter para continuar.");
@@ -66,16 +79,20 @@ public class DataBase {
 
             }
 
+            //Hashtag mas usado en un dia especifico sin tener en cuenta f1
             if (opcion == 5 && datosCargados){
                 System.out.println("Ingrese el año que desea consultar (2021 o 2022): ");
                 int anio = sc.nextInt();
                 sc.nextLine();
-                System.out.println("Ingrese el mes que desea consultar (1 al 12): ");
+                if (!validateAnio(anio)) {continue;}
+                System.out.println("Ingrese el mes que desea consultar (2021(7-12) en 2021(1-8)): ");
                 int mes = sc.nextInt();
                 sc.nextLine();
+                if (!validateMes(anio,mes)) {continue;}
                 System.out.println("Ingrese el dia que desea consultar (1 al 31): ");
                 int dia = sc.nextInt();
                 sc.nextLine();
+                if (!validateDia(dia)) {continue;}
                 String hashMasUsado = Funciones.hashtagMasUsado(anio,mes, dia, hashTweets);
                 if(hashMasUsado==null){
                     System.out.println("No hay Hashtags en ese dia.");
@@ -87,6 +104,7 @@ public class DataBase {
 
             }
 
+            //Top 7 usuarios con mas favoritos
             if (opcion == 6 && datosCargados){
                 HeapNode<Integer,String>[] heapFavoritos =  Funciones.topFavoritos(hashUsers);
                 System.out.println("Los 7 Usuarios con mas Favoritos son: ");
@@ -98,6 +116,7 @@ public class DataBase {
 
             }
 
+            //Cantidad de tweets con una frase especifica
             if (opcion == 7 && datosCargados){
                 System.out.println("Ingrese la frase que desea consultar: ");
                 String frase = sc.nextLine();
@@ -112,5 +131,26 @@ public class DataBase {
             }
         }
         sc.close();
+    }
+    private static boolean validateAnio(int anio) {
+        if (anio < 2021 || anio > 2022) {
+            System.out.println("Ingrese un año válido.");
+            return false;
+        }
+        return true;
+    }
+    private static boolean validateMes(int anio, int mes) {
+        if ((anio == 2021 && (mes < 7 || mes > 12)) || (anio == 2022 && (mes < 1 || mes > 8))) {
+            System.out.println("Ingrese un mes válido.");
+            return false;
+        }
+        return true;
+    }
+    private static boolean validateDia(int dia) {
+        if (dia < 1 || dia > 31) {
+            System.out.println("Ingrese un día válido.");
+            return false;
+        }
+        return true;
     }
 }
