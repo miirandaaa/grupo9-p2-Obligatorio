@@ -2,8 +2,26 @@ package uy.edu.um.prog2.adt.linkedlist;
 
 public class MyLinkedListImpl <T> implements MyLinkedList<T>{
     private Nodo<T> head;
+    private Nodo<T> tail;
     public MyLinkedListImpl() {
         this.head=null;
+        this.tail=null;
+    }
+
+    public Nodo<T> getHead() {
+        return head;
+    }
+
+    public void setHead(Nodo<T> head) {
+        this.head = head;
+    }
+
+    public Nodo<T> getTail() {
+        return tail;
+    }
+
+    public void setTail(Nodo<T> tail) {
+        this.tail = tail;
     }
 
     @Override
@@ -116,9 +134,15 @@ public class MyLinkedListImpl <T> implements MyLinkedList<T>{
         }
         return false;
     }
-
+    @Override
     public void addLast(T value){
-        add(value);
+        if(this.head==null){
+            this.head=new Nodo<T>(value);
+            this.tail=this.head;
+        } else {
+            this.tail.setNext(new Nodo<T>(value));
+            this.tail=this.tail.getNext();
+        }
     }
 
 

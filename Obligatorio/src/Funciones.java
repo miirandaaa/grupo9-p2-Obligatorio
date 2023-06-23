@@ -14,10 +14,11 @@ public class Funciones {
 
     public static HeapNode<Integer, String>[] topPilotos(int anio, int mes, MyHashTable<Long, Tweet> hash) {
         HeapNode<Integer, String>[] heap = leerArchivo("src/Data/drivers.txt");
-        for (long i = 0; i < hash.size(); i++) {
-            if (hash.get(i).getDate().getYear() == anio && hash.get(i).getDate().getMonthValue() == mes) {
+        Long[] keys=hash.keysLong();
+        for (int i = 0; i < hash.size(); i++) {
+            if (hash.get(keys[i]).getDate().getYear() == anio && hash.get(keys[i]).getDate().getMonthValue() == mes) {
                 for (int j = 0; j < heap.length; j++) {
-                    if (hash.get(i).getContent().toLowerCase().contains(heap[j].getData())) {
+                    if (hash.get(keys[i]).getContent().toLowerCase().contains(heap[j].getData())) {
                         heap[j].setKey(heap[j].getKey() + 1);
                     }
                 }
@@ -47,19 +48,19 @@ public class Funciones {
     }
 
     public static int cantidadHashtags(int anio, int mes, int dia, MyHashTable<Long, Tweet> hash){
-        MyLinkedList<String> hashtagslist = new MyLinkedListImpl<>();
+        MyHashTable<String,String> hashtagsHash=new HashTableImpl<>(200000);
         Long[] llaves= hash.keysLong();
         for (int i = 0; i < hash.size(); i++) {
             if (hash.get(llaves[i]).getDate().getYear() == anio && hash.get(llaves[i]).getDate().getMonthValue() == mes && hash.get(llaves[i]).getDate().getDayOfMonth() == dia) {
                 for (int j = 0; j < hash.get(llaves[i]).getHashTags().size(); j++) {
                    String text =  hash.get(llaves[i]).getHashTags().get(j).getText();
-                   if (!hashtagslist.contains(text)){
-                          hashtagslist.add(text);
+                   if (!hashtagsHash.contains(text)){
+                       hashtagsHash.put(text,text);
                    }
                 }
             }
         }
-        return hashtagslist.size();
+        return hashtagsHash.size();
     }
 
     public static String  hashtagMasUsado(int anio, int mes, int dia, MyHashTable<Long, Tweet> hash){
@@ -85,23 +86,46 @@ public class Funciones {
             }
         }
         HeapNode<Integer,String>[] heap = new HeapNode[hashHashtags.size()];
-        MyLinkedList<String> keys = hashHashtags.keys();
-        for (int m = 0; m< keys.size(); m++){
-            heap[m] = hashHashtags.get(keys.get(m));
+        String[] keys = hashHashtags.keysString();
+        if(keys.length==0){
+            return null;
+        } else {
+            for (int m = 0; m< keys.length; m++){
+                heap[m] = hashHashtags.get(keys[m]);
+            }
+            HeapSort<Integer, String> heapSort = new HeapSort<>();
+            heapSort.sort(heap);
+            return heap[0].getData();
+        }
+
+    }
+
+    public static HeapNode<Integer,String>[] topFavoritos(MyHashTable<String,User> hash){
+        String[] keys= hash.keysString();
+        HeapNode<Integer,String>[] heap = new HeapNode[keys.length];
+        for(int i=0; i<keys.length;i++){
+            User usuario=hash.get(keys[i]);
+            heap[i]=new HeapNode<>(usuario.getUserFavourites(),usuario.getName());
         }
         HeapSort<Integer, String> heapSort = new HeapSort<>();
         heapSort.sort(heap);
-        return heap[0].getData();
+        HeapNode<Integer, String>[] heapFinal = new HeapNode[7];
+        for (int i = 0; i < 7; i++) {
+            heapFinal[i] = heap[i];
+        }
+        return heapFinal;
     }
 
-    public static HeapNode<Integer,String>[] topFavoritos(){
-        //heap sort para ordenar por cantidad de favoritos de mayor a menor
-        return null;
-    }
-
-    public static int cantidadTweetsFrase(String frase){
-        //recorrer el hash table y sumar la cantidad de tweets que contengan la frase
-        return 0;
+    public static int cantidadTweetsFrase(String frase,MyHashTable<Long, Tweet> hash){
+        frase=frase.toLowerCase();
+        Long[] keys= hash.keysLong();
+        int contador=0;
+        for(int i=0; i< keys.length;i++){
+            if(hash.get(keys[i]).getContent().toLowerCase().contains(frase)){
+                contador++;
+            }
+        }
+        return contador;
     }
 
     private  static HeapNode<Integer,String>[] leerArchivo(String nombreArchivo) {

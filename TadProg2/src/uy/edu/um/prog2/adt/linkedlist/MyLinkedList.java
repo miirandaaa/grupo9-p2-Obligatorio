@@ -9,5 +9,7 @@ public interface MyLinkedList<T> {
 
     public boolean contains(T value);
 
+    public void addLast(T value);
+
 
 }
