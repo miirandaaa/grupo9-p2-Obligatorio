@@ -9,8 +9,7 @@ public class DataBase {
     public static void main(String[] args) throws IOException {
         Scanner sc = new Scanner(System.in);
         boolean datosCargados = false;
-        MyHashTable<String,User> hashUsers= new HashTableImpl<>(650000);
-        MyHashTable<String,HashTag> hashHashtags= new HashTableImpl<>(600000);
+        MyHashTable<String,User> hashUsers= new HashTableImpl<>(120000);
         MyHashTable<Long,Tweet> hashTweets= new HashTableImpl<>(650000);
         while (true) {
             System.out.println("Menu principal: \n1 Cargar Datos \n2 Pilotos mas Mencionados \n3 Top 15 Usuarios con mas Tweets \n4 Cantidad de Hashtags \n5 Hashtag mas Usado \n6 Top 7 Cuentas con mas Favoritos \n7 Cantidad de Tweets con una Frase Especifica \n8 Salir \nOpcion:  ");
@@ -23,9 +22,13 @@ public class DataBase {
             }
 
             if (opcion == 1 && !datosCargados){
+                //long startTime = System.currentTimeMillis(); // Start time
                 CargaDatos carga = new CargaDatos();
-                carga.datos(hashUsers,hashHashtags,hashTweets);
+                carga.datos(hashUsers,hashTweets);
                 datosCargados = true;
+                // long endTime = System.currentTimeMillis(); End time
+                //long executionTime = endTime - startTime; Execution time in milliseconds
+                //System.out.println("Execution time: " + executionTime + " milliseconds");
             }
 
             //Listar 10 pilotos activos mas mencionados en un mes y año especifico
@@ -34,12 +37,16 @@ public class DataBase {
                 int anio = sc.nextInt();
                 sc.nextLine();
                 if (!validateAnio(anio)) {continue;}
-                System.out.println("Ingrese el mes que desea consultar (2021(7-12) en 2021(1-8): ");
+                System.out.println("Ingrese el mes que desea consultar (2021(7-12) en 2022(1-8): ");
                 int mes = sc.nextInt();
                 sc.nextLine();
                 if (!validateMes(anio,mes)) {continue;}
+                //long startTime = System.currentTimeMillis();  Start time
                 HeapNode<Integer,String>[] heap = Funciones.topPilotos(anio, mes, hashTweets);
                 System.out.println("Los 10 Pilotos mas Mencionados son: ");
+                // long endTime = System.currentTimeMillis(); //End time
+                //long executionTime = endTime - startTime;// Execution time in milliseconds
+                //System.out.println("Execution time: " + executionTime + " milliseconds");
                 for (int i = 0; i < 10; i++) {
                     System.out.println(heap[i].getData() + " " + heap[i].getKey());
                 }
@@ -49,7 +56,11 @@ public class DataBase {
 
             //Top 15 usuarios con mas tweets
             if (opcion == 3 && datosCargados){
+                long startTime = System.currentTimeMillis();  //Start time
                 HeapNode<Integer,User>[] heapUser =  Funciones.topUsuarios(hashUsers);
+                long endTime = System.currentTimeMillis(); //End time
+                long executionTime = endTime - startTime;// Execution time in milliseconds
+                System.out.println("Execution time: " + executionTime + " milliseconds");
                 System.out.println("Los 15 Usuarios con mas Tweets son: ");
                 for (int i = 0; i < 15; i++) {
                     System.out.println("Username: "+heapUser[i].getData().getName() + " - Cantidad de Tweets: "+ heapUser[i].getKey()+ " - Verificado: " + heapUser[i].getData().isVerified());

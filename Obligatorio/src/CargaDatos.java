@@ -18,8 +18,10 @@ import uy.edu.um.prog2.adt.linkedlist.*;
 
 
 public class CargaDatos {
-    public void datos(MyHashTable<String,User> hashUsers,MyHashTable<String,HashTag> hashHashtags,MyHashTable<Long,Tweet> hashTweets) throws IOException{
+    public void datos(MyHashTable<String,User> hashUsers,MyHashTable<Long,Tweet> hashTweets) throws IOException{
+        MyHashTable<String,HashTag> hashHashtags=new HashTableImpl<>(45000);
         String[] arrayHashtag;
+
 
         Reader in = new FileReader("src/Data/f1_dataset.csv");
         Iterable<CSVRecord> records = CSVFormat.EXCEL.parse(in);
@@ -76,15 +78,13 @@ public class CargaDatos {
             tweetUser.getTweets().add(nuevoTweet.getId());
             //Verificar si es el ultimo tweet que publico el usuario y cambiar la cantidad de favourites.
             if(tweetUser.getLastTweet()==null){
-                tweetUser.setLastTweet(nuevoTweet);
+                tweetUser.setLastTweet(nuevoTweet.getDate());
             } else {
-                if(tweetUser.getLastTweet().getDate().isBefore(dateTweetCreated)){
-                    tweetUser.setLastTweet(nuevoTweet);
+                if(tweetUser.getLastTweet().isBefore(dateTweetCreated)){
+                    tweetUser.setLastTweet(nuevoTweet.getDate());
                     tweetUser.setUserFavourites(userFavourites);
                 }
             }
-
-
         }
     }
 
