@@ -23,7 +23,6 @@ public class Funciones {
                     }
                 }
             }
-
         }
         HeapSort<Integer, String> heapSort = new HeapSort<>();
         heapSort.sort(heap);
@@ -41,14 +40,12 @@ public class Funciones {
         heapSort.sort(heap);
 
         HeapNode<Integer, User>[] heapFinal = new HeapNode[15];
-        for (int i = 0; i < 15; i++) {
-            heapFinal[i] = heap[i];
-        }
+        System.arraycopy(heap, 0, heapFinal, 0, 15);
         return heapFinal;
     }
 
     public static int cantidadHashtags(int anio, int mes, int dia, MyHashTable<Long, Tweet> hash){
-        MyHashTable<String,String> hashtagsHash=new HashTableImpl<>(200000);
+        MyHashTable<String,String> hashtagsHash=new HashTableImpl<>(45000);
         Long[] llaves= hash.keysLong();
         for (int i = 0; i < hash.size(); i++) {
             if (hash.get(llaves[i]).getDate().getYear() == anio && hash.get(llaves[i]).getDate().getMonthValue() == mes && hash.get(llaves[i]).getDate().getDayOfMonth() == dia) {
@@ -66,7 +63,6 @@ public class Funciones {
     public static String  hashtagMasUsado(int anio, int mes, int dia, MyHashTable<Long, Tweet> hash){
         int cantidad = cantidadHashtags(anio,mes,dia,hash);
         MyHashTable<String, HeapNode<Integer,String>> hashHashtags = new HashTableImpl<>(cantidad);
-        int contador = 0;
         boolean encontrado = false;
         for (long  i = 0; i < hash.size(); i++) {
             if (hash.get(i).getDate().getYear() == anio && hash.get(i).getDate().getMonthValue() == mes && hash.get(i).getDate().getDayOfMonth() == dia) {
@@ -80,7 +76,6 @@ public class Funciones {
                     if (!encontrado && !text.equalsIgnoreCase("f1")){
                         HeapNode<Integer,String> nuevo = new HeapNode<>(0,text);
                         hashHashtags.put(text,nuevo);
-                        contador++;
                     }
                 }
             }
@@ -110,9 +105,7 @@ public class Funciones {
         HeapSort<Integer, String> heapSort = new HeapSort<>();
         heapSort.sort(heap);
         HeapNode<Integer, String>[] heapFinal = new HeapNode[7];
-        for (int i = 0; i < 7; i++) {
-            heapFinal[i] = heap[i];
-        }
+        System.arraycopy(heap, 0, heapFinal, 0, 7);
         return heapFinal;
     }
 
