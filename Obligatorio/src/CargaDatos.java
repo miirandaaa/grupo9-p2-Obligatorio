@@ -75,7 +75,7 @@ public class CargaDatos {
                 }
             }
             //Poner el tweet a la lista de tweets del usuario
-            tweetUser.getTweets().add(nuevoTweet.getId());
+            tweetUser.getTweets().addLast(nuevoTweet.getId());
             //Verificar si es el ultimo tweet que publico el usuario y cambiar la cantidad de favourites.
             if(tweetUser.getLastTweet()==null){
                 tweetUser.setLastTweet(nuevoTweet.getDate());

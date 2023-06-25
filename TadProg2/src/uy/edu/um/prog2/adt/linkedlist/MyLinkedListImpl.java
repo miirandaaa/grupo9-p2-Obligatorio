@@ -3,6 +3,7 @@ package uy.edu.um.prog2.adt.linkedlist;
 public class MyLinkedListImpl <T> implements MyLinkedList<T>{
     private Nodo<T> head;
     private Nodo<T> tail;
+
     public MyLinkedListImpl() {
         this.head=null;
         this.tail=null;

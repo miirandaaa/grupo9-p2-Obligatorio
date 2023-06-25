@@ -26,8 +26,8 @@ public class DataBase {
                 CargaDatos carga = new CargaDatos();
                 carga.datos(hashUsers,hashTweets);
                 datosCargados = true;
-                // long endTime = System.currentTimeMillis(); End time
-                //long executionTime = endTime - startTime; Execution time in milliseconds
+                //long endTime = System.currentTimeMillis(); //End time
+                //long executionTime = endTime - startTime; //Execution time in milliseconds
                 //System.out.println("Execution time: " + executionTime + " milliseconds");
             }
 
@@ -41,10 +41,10 @@ public class DataBase {
                 int mes = sc.nextInt();
                 sc.nextLine();
                 if (!validateMes(anio,mes)) {continue;}
-                //long startTime = System.currentTimeMillis();  Start time
+                //long startTime = System.currentTimeMillis();  //Start time
                 HeapNode<Integer,String>[] heap = Funciones.topPilotos(anio, mes, hashTweets);
                 System.out.println("Los 10 Pilotos mas Mencionados son: ");
-                // long endTime = System.currentTimeMillis(); //End time
+                //long endTime = System.currentTimeMillis(); //End time
                 //long executionTime = endTime - startTime;// Execution time in milliseconds
                 //System.out.println("Execution time: " + executionTime + " milliseconds");
                 for (int i = 0; i < 10; i++) {
@@ -56,11 +56,11 @@ public class DataBase {
 
             //Top 15 usuarios con mas tweets
             if (opcion == 3 && datosCargados){
-                long startTime = System.currentTimeMillis();  //Start time
+                //long startTime = System.currentTimeMillis();  //Start time
                 HeapNode<Integer,User>[] heapUser =  Funciones.topUsuarios(hashUsers);
-                long endTime = System.currentTimeMillis(); //End time
-                long executionTime = endTime - startTime;// Execution time in milliseconds
-                System.out.println("Execution time: " + executionTime + " milliseconds");
+                //long endTime = System.currentTimeMillis(); //End time
+                //long executionTime = endTime - startTime;// Execution time in milliseconds
+                //System.out.println("Execution time: " + executionTime + " milliseconds");
                 System.out.println("Los 15 Usuarios con mas Tweets son: ");
                 for (int i = 0; i < 15; i++) {
                     System.out.println("Username: "+heapUser[i].getData().getName() + " - Cantidad de Tweets: "+ heapUser[i].getKey()+ " - Verificado: " + heapUser[i].getData().isVerified());
@@ -83,7 +83,11 @@ public class DataBase {
                 int dia = sc.nextInt();
                 sc.nextLine();
                 if (!validateDia(dia)) {continue;}
+                //long startTime = System.currentTimeMillis(); // Start time
                 int cantidad = Funciones.cantidadHashtags(anio,mes, dia, hashTweets);
+                //long endTime = System.currentTimeMillis(); //End time
+                //long executionTime = endTime - startTime;// Execution time in milliseconds
+                //System.out.println("Execution time: " + executionTime + " milliseconds");
                 System.out.println("La cantidad de Hashtags es: " + cantidad);
                 System.out.println("Presione enter para continuar.");
                 sc.nextLine();
@@ -104,7 +108,11 @@ public class DataBase {
                 int dia = sc.nextInt();
                 sc.nextLine();
                 if (!validateDia(dia)) {continue;}
+                //long startTime = System.currentTimeMillis(); // Start time
                 String hashMasUsado = Funciones.hashtagMasUsado(anio,mes, dia, hashTweets);
+                //long endTime = System.currentTimeMillis(); //End time
+                //long executionTime = endTime - startTime;// Execution time in milliseconds
+                //System.out.println("Execution time: " + executionTime + " milliseconds");
                 if(hashMasUsado==null){
                     System.out.println("No hay Hashtags en ese dia.");
                 } else {
@@ -117,7 +125,11 @@ public class DataBase {
 
             //Top 7 usuarios con mas favoritos
             if (opcion == 6 && datosCargados){
+                //long startTime = System.currentTimeMillis(); // Start time
                 HeapNode<Integer,String>[] heapFavoritos =  Funciones.topFavoritos(hashUsers);
+                //long endTime = System.currentTimeMillis(); //End time
+                //long executionTime = endTime - startTime;// Execution time in milliseconds
+                //System.out.println("Execution time: " + executionTime + " milliseconds");
                 System.out.println("Los 7 Usuarios con mas Favoritos son: ");
                 for (int i = 0; i < 7; i++) {
                     System.out.println("Username: "+heapFavoritos[i].getData() + " - Cantidad de favoritos: "+ heapFavoritos[i].getKey());
@@ -131,7 +143,11 @@ public class DataBase {
             if (opcion == 7 && datosCargados){
                 System.out.println("Ingrese la frase que desea consultar: ");
                 String frase = sc.nextLine();
+                //long startTime = System.currentTimeMillis(); // Start time
                 int cantidad=Funciones.cantidadTweetsFrase(frase,hashTweets);
+                //long endTime = System.currentTimeMillis(); //End time
+                //long executionTime = endTime - startTime;// Execution time in milliseconds
+                //System.out.println("Execution time: " + executionTime + " milliseconds");
                 System.out.println("La cantidad de Tweets con la frase es: "+cantidad);
                 System.out.println("Presione enter para continuar.");
                 sc.nextLine();

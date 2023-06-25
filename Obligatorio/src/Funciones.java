@@ -5,6 +5,9 @@ import uy.edu.um.prog2.adt.heap.MyHeapImpl;
 import uy.edu.um.prog2.adt.heapSort.HeapSort;
 import uy.edu.um.prog2.adt.linkedlist.MyLinkedList;
 import uy.edu.um.prog2.adt.linkedlist.MyLinkedListImpl;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -18,7 +21,7 @@ public class Funciones {
         for (int i = 0; i < hash.size(); i++) {
             if (hash.get(keys[i]).getDate().getYear() == anio && hash.get(keys[i]).getDate().getMonthValue() == mes) {
                 for (int j = 0; j < heap.length; j++) {
-                    if (hash.get(keys[i]).getContent().toLowerCase().contains(heap[j].getData())) {
+                    if (hash.get(keys[i]).getContent().contains(heap[j].getData())) {
                         heap[j].setKey(heap[j].getKey() + 1);
                     }
                 }
@@ -110,11 +113,11 @@ public class Funciones {
     }
 
     public static int cantidadTweetsFrase(String frase,MyHashTable<Long, Tweet> hash){
-        frase=frase.toLowerCase();
         Long[] keys= hash.keysLong();
+
         int contador=0;
-        for(int i=0; i< keys.length;i++){
-            if(hash.get(keys[i]).getContent().toLowerCase().contains(frase)){
+        for (Long key : keys) {
+            if (hash.get(key).getContent().contains(frase)) {
                 contador++;
             }
         }
@@ -128,7 +131,7 @@ public class Funciones {
             String linea;
             int contador = 0;
             while ((linea = br.readLine()) != null) {
-                lista[contador]= new HeapNode<>(0,linea.toLowerCase());
+                lista[contador]= new HeapNode<>(0,linea);
                 contador ++;
             }
         } catch (IOException e) {
@@ -136,5 +139,6 @@ public class Funciones {
         }
         return lista;
     }
+
 
 }
